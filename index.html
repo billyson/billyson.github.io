@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Leisure Quote</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input { padding: 6px 10px; width: 300px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; }
+    button { margin-top: 16px; padding: 8px 20px; background: #0078d4; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    button:hover { background: #005fa3; }
+    pre { margin-top: 20px; background: #f4f4f4; padding: 16px; border-radius: 4px; white-space: pre-wrap; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h2>Travel Leisure Quote — Test</h2>
+
+  <label for="username">Username</label>
+  <input type="text" id="username" placeholder="Enter username" />
+
+  <label for="password">Password</label>
+  <input type="password" id="password" placeholder="Enter password" />
+
+  <br />
+  <button onclick="submitQuote()">Submit Quote</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function submitQuote() {
+      const output = document.getElementById("output");
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      //if (!username || !password) {
+      //  output.textContent = "Please enter both username and password.";
+      //  return;
+      //}
+
+      output.textContent = "Sending...";
+
+      const credentials = btoa(`${username}:${password}`);
+
+      const payload = {
+        Payment: {
+          PaymentMethod: 2,
+          PaymentTokenId: "ot-n5i7p9hQ7qzUfj2XahcJH9ZM4",
+          CardHolderName: "Mark Saro"
+        },
+        ClientAddrLookup: {
+          ClientLookup: [
+            {
+              ClientRealID: 0,
+              Gender: "",
+              Relationship: "P",
+              FirstName: "MARK",
+              LastName: "SARO",
+              BirthDate: "20/05/1990"
+            }
+          ],
+          ClientType: "S",
+          Prov: "ON",
+          Country: "Canada",
+          Address: "1",
+          City: "Toronto",
+          PostalCode: "m1m",
+          Email: "Marksaro1111@gmail.com",
+          Phone: "122211"
+        },
+        ProductID: 101,
+        ApplicationDate: "01/07/2026",
+        RateSeqID: 8,
+        ArrivalDate: "01/07/2026",
+        EffectiveDate: "01/07/2026",
+        ExpiryDate: "12/10/2026",
+        IsQuoteOnly: false,
+        AfterDeparture: false,
+        AfterDeparture2: false,
+        COVID19Rider: false,
+        COVID19Rider2: false,
+        GHIP: "Y",
+        ApplicantsAreEligible: "Y",
+        TotalPremium: 423.6,
+        ScheduleNo: "10",
+        DailyRate: 2.57,
+        TripLength: 12,
+        MedOptNotes: "Single Trip Rates For Individual"
+      };
+
+
+      const url = "https://devweb.desttravel.com"; // "http://localhost:62474";
+
+      try {
+	    const endpoint = `${url}/api/travelleisurequote?id=47b0a0ee-276e-4227-a844-8b2e35084cec#`;
+		console.log(endpoint);
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Basic ${credentials}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const responseBody = await response.text();
+        output.textContent = `${response.status} ${response.statusText}\n\n${responseBody}`;
+      } catch (err) {
+        output.textContent = "Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
