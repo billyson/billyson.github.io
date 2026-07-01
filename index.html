@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Travel Leisure Quote</title>
+  <title>Travel Test Quote</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
     label { display: block; margin-top: 10px; font-weight: bold; }
@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-  <h2>Travel Leisure Quote — Test</h2>
+  <h2>Travel Test Quote</h2>
 
   <label for="username">Username</label>
   <input type="text" id="username" placeholder="Enter username" />
@@ -32,10 +32,10 @@
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
 
-      //if (!username || !password) {
-      //  output.textContent = "Please enter both username and password.";
-      //  return;
-      //}
+      if (!username || !password) {
+        output.textContent = "Please enter both username and password.";
+        return;
+      }
 
       output.textContent = "Sending...";
 
@@ -88,10 +88,10 @@
       };
 
 
-      const url = "https://devweb.desttravel.com"; // "http://localhost:62474";
+      const url = "https://www.desttravel.com";
 
       try {
-	    const endpoint = `${url}/api/travelleisurequote?id=47b0a0ee-276e-4227-a844-8b2e35084cec#`;
+	    const endpoint = `${url}/api/travelleisurequote`;
 		console.log(endpoint);
         const response = await fetch(endpoint, {
           method: "POST",
