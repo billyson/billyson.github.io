@@ -49,7 +49,6 @@
             "Accept": "application/json",
             "Authorization": `Basic ${credentials}`
           },
-          body: JSON.stringify(payload)
         });
 
         const responseBody = await response.text();
